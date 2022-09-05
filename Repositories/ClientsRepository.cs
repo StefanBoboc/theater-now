@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +19,13 @@ namespace TheaterNow.Repositories
         public IQueryable<Client> GetAllClients()
         {
             var clients = _context.Clients;
+
+            return clients;
+        }
+
+        public IQueryable<Client> GetClientsWithShows()
+        {
+            var clients = GetAllClients().Include(x => x.Reservations);
 
             return clients;
         }

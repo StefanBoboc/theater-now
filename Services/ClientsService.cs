@@ -24,6 +24,11 @@ namespace TheaterNow.Services
 
         public Client GetClientById(int clientId) => _clientsRepository.GetAllClients().FirstOrDefault(x => x.Id == clientId);
 
+        public List<Client> GetClientsWithShows()
+        {
+            return _clientsRepository.GetClientsWithShows().ToList();
+        }
+
         public void AddClient(ClientVM client) 
         {
             var _client = new Client()

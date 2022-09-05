@@ -11,6 +11,7 @@ namespace TheaterNow.Services
     {
         List<Client> GetAllClients();
         Client GetClientById(int id);
+        List<Client> GetClientsWithShows();
         void AddClient(ClientVM client);
         public Client UpdateClientById(int clientId, ClientVM client);
         public Client DeleteClientById(int clientId);

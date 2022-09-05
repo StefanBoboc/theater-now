@@ -14,10 +14,12 @@ namespace TheaterNow.Controllers
     public class ReservationController : ControllerBase
     {
         public readonly IReservationsService _reservationsService;
+        public readonly IClientsService _clientsService;
 
-        public ReservationController(IReservationsService reservationsService)
+        public ReservationController(IReservationsService reservationsService, IClientsService clientsService)
         {
             _reservationsService = reservationsService;
+            _clientsService = clientsService;
         }
 
         [HttpGet("get-all-reservations")]
@@ -35,6 +37,40 @@ namespace TheaterNow.Controllers
             if (reservation == null)
                 return BadRequest("Reservation not found.");
             return Ok(reservation);
+        }
+
+        [HttpGet("get-shows-number-per-client")]
+        public async Task<IActionResult> GetShowsNumberPerClient()
+        {
+            Dictionary<int, string> My_dict1 = new Dictionary<int, string>();
+
+            List<string> groupList = new List<string>();
+
+            var innerJoinResult = (from r in _reservationsService.GetAllReservations() 
+                                  join c in _clientsService.GetAllClients() 
+                                  on r.ClientId equals c.Id 
+                                  select new
+                                  { 
+                                      ClientId = c.Id,
+                                      ClientLastName = c.LastName,
+                                      ClientFirstName = c.FirstName
+                                  }).Distinct();
+
+            foreach (var join in innerJoinResult)
+            {
+                My_dict1.Add(join.ClientId, string.Format("{0} {1}", join.ClientFirstName, join.ClientLastName));
+            }
+
+            var showsNumberPerClient = _reservationsService.GetAllReservations().GroupBy(x => x.ClientId);
+
+            foreach (var group in showsNumberPerClient)
+            {
+
+                groupList.Add(string.Format("{0} - {1}", My_dict1[group.Key], group.Count()));
+            }
+
+            return Ok(groupList);
+
         }
 
         [HttpPost("add-reservation")]

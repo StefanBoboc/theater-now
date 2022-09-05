@@ -11,6 +11,7 @@ namespace TheaterNow.Services
     {
         List<Show> GetAllShows();
         Show GetShowById(int id);
+        List<Show> GetShowsByTitle(string title);
         void AddShow(ShowVM show);
         public Show UpdateShowById(int showId, ShowVM show);
         public Show DeleteShowById(int showId);

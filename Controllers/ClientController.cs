@@ -36,6 +36,14 @@ namespace TheaterNow.Controllers
                 return BadRequest("Client not found.");
             return Ok(client);
         }
+        
+        [HttpGet("get-clients-with-shows")]
+        public async Task<IActionResult> GetClientsWithShows()
+        {
+            var clientsWithShows = _clientsService.GetClientsWithShows();
+
+            return Ok(clientsWithShows);
+        }
 
         [HttpPost("add-client")]
         public IActionResult AddClient([FromBody] ClientVM client)

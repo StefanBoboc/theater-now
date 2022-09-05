@@ -52,6 +52,11 @@ namespace TheaterNow
             services.AddTransient<IReservationsRepository, ReservationsRepository>();
             services.AddTransient<IReservationsService, ReservationsService>();
 
+            services.AddControllersWithViews()
+                    .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TheaterNow", Version = "v1" });

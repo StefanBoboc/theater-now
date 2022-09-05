@@ -37,6 +37,15 @@ namespace TheaterNow.Controllers
             return Ok(show);
         }
 
+        [HttpGet("get-shows-by-title/{title}")]
+        public async Task<IActionResult> GetShowsByTitle([FromRoute] string title)
+        {
+            List<Entities.Show> shows = _showsService.GetShowsByTitle(title);
+            if (!shows.Any())
+                return BadRequest(String.Format("Your search for \"{0}\" returned no results",title));
+            return Ok(shows);
+        }
+
         [HttpPost("add-show")]
         public IActionResult AddShow([FromBody] ShowVM show)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,13 +16,19 @@ namespace TheaterNow.Services
         {
             _showsRepository = showsRepository;
         }
-
+        
         public List<Show> GetAllShows()
         {
             return _showsRepository.GetAllShows().ToList();
         }
 
         public Show GetShowById(int showId) => _showsRepository.GetAllShows().FirstOrDefault(x => x.Id == showId);
+
+        public List<Show> GetShowsByTitle(string title) 
+        {
+            return _showsRepository.GetAllShows().Where(c => c.Title.ToUpper().Contains(title.ToUpper())).ToList();
+
+        }
 
         public void AddShow(ShowVM show)
         {

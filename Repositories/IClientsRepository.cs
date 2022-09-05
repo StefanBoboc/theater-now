@@ -10,6 +10,7 @@ namespace TheaterNow.Repositories
     public interface IClientsRepository
     {
         IQueryable<Client> GetAllClients();
+        IQueryable<Client> GetClientsWithShows();
         void AddClient (Client client);
         void UpdateClientById(Client client);
         void DeleteClientById(Client client);
