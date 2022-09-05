@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using TheaterNow.ViewModels;
 
 namespace TheaterNow.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ClientController : ControllerBase
@@ -19,7 +21,9 @@ namespace TheaterNow.Controllers
         {
             _clientsService = clientsService;
         }
-
+        
+        //
+        //Return all the clients
         [HttpGet("get-all-clients")]
         public async Task<IActionResult> GetAllClients()
         {
@@ -28,6 +32,8 @@ namespace TheaterNow.Controllers
             return Ok(clients);
         }
 
+        //
+        //Return client by id
         [HttpGet("get-client-by-id/{id}")]
         public async Task<IActionResult> GetClientById([FromRoute] int id)
         {
@@ -36,7 +42,9 @@ namespace TheaterNow.Controllers
                 return BadRequest("Client not found.");
             return Ok(client);
         }
-        
+
+        //
+        //Return clients including their shows
         [HttpGet("get-clients-with-shows")]
         public async Task<IActionResult> GetClientsWithShows()
         {
@@ -45,6 +53,9 @@ namespace TheaterNow.Controllers
             return Ok(clientsWithShows);
         }
 
+
+        //
+        //Add a new client
         [HttpPost("add-client")]
         public IActionResult AddClient([FromBody] ClientVM client)
         {
@@ -52,6 +63,8 @@ namespace TheaterNow.Controllers
             return Ok();
         }
 
+        //
+        //Update a client
         [HttpPut("update-client-by-id/{id}")]
         public async Task<IActionResult> UpdateClientById(int id, [FromBody] ClientVM client)
         {
@@ -60,7 +73,9 @@ namespace TheaterNow.Controllers
                 return BadRequest("Client not found.");
             return Ok(updatedClient);
         }
-        
+
+        //
+        //Delete a client
         [HttpDelete("delete-client-by-id/{id}")]
         public async Task<IActionResult> DeleteClientById([FromRoute] int id)
         {

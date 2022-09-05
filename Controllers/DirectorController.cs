@@ -9,6 +9,7 @@ using TheaterNow.ViewModels;
 
 namespace TheaterNow.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DirectorController : ControllerBase
@@ -20,6 +21,8 @@ namespace TheaterNow.Controllers
             _directorsService = directorsService;
         }
 
+        //
+        //Return all the directors
         [HttpGet("get-all-directors")]
         public async Task<IActionResult> GetAllDirectors()
         {
@@ -28,6 +31,8 @@ namespace TheaterNow.Controllers
             return Ok(directors);
         }
 
+        //
+        //Return director by id
         [HttpGet("get-director-by-id/{id}")]
         public async Task<IActionResult> GetDirectorById([FromRoute] int id)
         {
@@ -37,6 +42,8 @@ namespace TheaterNow.Controllers
             return Ok(director);
         }
 
+        //
+        //Add a new director
         [HttpPost("add-director")]
         public IActionResult AddDirector([FromBody] DirectorVM director)
         {
@@ -44,6 +51,8 @@ namespace TheaterNow.Controllers
             return Ok();
         }
 
+        //
+        //Update a director
         [HttpPut("update-director-by-id/{id}")]
         public async Task<IActionResult> UpdateDirectorById(int id, [FromBody] DirectorVM Director)
         {
@@ -53,6 +62,8 @@ namespace TheaterNow.Controllers
             return Ok(updatedDirector);
         }
 
+        //
+        //Delete a director
         [HttpDelete("delete-director-by-id/{id}")]
         public async Task<IActionResult> DeleteDirectorById([FromRoute] int id)
         {

@@ -9,6 +9,7 @@ using TheaterNow.ViewModels;
 
 namespace TheaterNow.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ShowController : ControllerBase
@@ -20,6 +21,8 @@ namespace TheaterNow.Controllers
             _showsService = showsService;
         }
 
+        //
+        //Return all the shows
         [HttpGet("get-all-shows")]
         public async Task<IActionResult> GetAllShows()
         {
@@ -28,6 +31,8 @@ namespace TheaterNow.Controllers
             return Ok(shows);
         }
 
+        //
+        //Return show by id
         [HttpGet("get-show-by-id/{id}")]
         public async Task<IActionResult> GetShowById([FromRoute] int id)
         {
@@ -37,6 +42,8 @@ namespace TheaterNow.Controllers
             return Ok(show);
         }
 
+        //
+        //Return show by title
         [HttpGet("get-shows-by-title/{title}")]
         public async Task<IActionResult> GetShowsByTitle([FromRoute] string title)
         {
@@ -46,6 +53,8 @@ namespace TheaterNow.Controllers
             return Ok(shows);
         }
 
+        //
+        //Add a new show
         [HttpPost("add-show")]
         public IActionResult AddShow([FromBody] ShowVM show)
         {
@@ -53,6 +62,8 @@ namespace TheaterNow.Controllers
             return Ok();
         }
 
+        //
+        //Update show
         [HttpPut("update-show-by-id/{id}")]
         public async Task<IActionResult> UpdateShowById(int id, [FromBody] ShowVM show)
         {
@@ -62,6 +73,8 @@ namespace TheaterNow.Controllers
             return Ok(updatedShow);
         }
 
+        //
+        //Delete show
         [HttpDelete("delete-show-by-id/{id}")]
         public async Task<IActionResult> DeleteShowById([FromRoute] int id)
         {

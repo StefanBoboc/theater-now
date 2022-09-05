@@ -9,6 +9,7 @@ using TheaterNow.ViewModels;
 
 namespace TheaterNow.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ReservationController : ControllerBase
@@ -22,6 +23,8 @@ namespace TheaterNow.Controllers
             _clientsService = clientsService;
         }
 
+        //
+        //Return all the reservations
         [HttpGet("get-all-reservations")]
         public async Task<IActionResult> GetAllreservations()
         {
@@ -30,6 +33,8 @@ namespace TheaterNow.Controllers
             return Ok(reservations);
         }
 
+        //
+        //Return reservation by id
         [HttpGet("get-reservation-by-id/{id}")]
         public async Task<IActionResult> GetReservationById([FromRoute] int id)
         {
@@ -39,6 +44,8 @@ namespace TheaterNow.Controllers
             return Ok(reservation);
         }
 
+        //
+        //Return number of shows for every client
         [HttpGet("get-shows-number-per-client")]
         public async Task<IActionResult> GetShowsNumberPerClient()
         {
@@ -73,6 +80,8 @@ namespace TheaterNow.Controllers
 
         }
 
+        //
+        //Add a new reservation
         [HttpPost("add-reservation")]
         public IActionResult AddReservation([FromBody] ReservationVM reservation)
         {
@@ -80,6 +89,8 @@ namespace TheaterNow.Controllers
             return Ok();
         }
 
+        //
+        //Update reservation
         [HttpPut("update-reservation-by-id/{id}")]
         public async Task<IActionResult> UpdateReservationById(int id, [FromBody] ReservationVM reservation)
         {
@@ -89,6 +100,8 @@ namespace TheaterNow.Controllers
             return Ok(updatedReservation);
         }
 
+        //
+        //Delete reservation
         [HttpDelete("delete-reservation-by-id/{id}")]
         public async Task<IActionResult> DeleteReservationById([FromRoute] int id)
         {
